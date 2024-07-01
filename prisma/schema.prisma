@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())   
+  userName String @unique
+  password String? 
+  profile Profile?
+  posts Post[]
+  postlikes PostLike[]
+  comments Comment[]
+  commentLikes CommentLike[]
+}
+
+model Profile {
+  id Int @id @default(autoincrement())
+  name String?
+  bio String?
+  profilePicture String?
+  userId Int @unique
+  user User @relation( fields: [userId], references: [id])
+}
+
+model Post {
+  id Int @id @default(autoincrement())
+  title String?
+  imageURL String?
+  likes PostLike[]
+  comments Comment[]
+  notifications Notification[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  published Boolean @default(true)
+  authorId Int
+  author User @relation( fields: [authorId], references: [id])
+}
+
+model PostLike {
+  displayName String?
+  postId Int
+  post Post @relation( fields: [postId], references: [id])
+  userId Int
+  user User @relation( fields: [userId], references: [id])
+
+  @@id([postId, userId])
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+  text String?
+  imageURL String?
+  likes CommentLike[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId Int
+  user User @relation( fields: [userId], references: [id])   
+  postId Int
+  post Post @relation( fields: [postId], references: [id])
+
+}
+
+model CommentLike {
+  displayName String?
+  commentId Int
+  comment Comment @relation( fields: [commentId], references: [id])
+  userId Int
+  user User @relation( fields: [userId], references: [id])
+
+  @@id([commentId, userId])
+}
+
+model Notification {
+  id Int @id @default(autoincrement())
+  object String
+  postId Int
+  post Post @relation( fields: [postId], references: [id])
+}

@@ -3,7 +3,6 @@ const cors = require('cors')
 const cookieSession = require('cookie-session')
 const passport = require('passport')
 const router = require('./routes')
-const { profilePath, messagePath } = require('./controllers/FileController')
 const { strategy, serialize, deserialize } = require('./middlewares/strategy')
 
 const app = express()
@@ -23,8 +22,9 @@ app.get('/', (req, res) => {
 })
 
 //static file
-app.use('/download/profile', profilePath)
-app.use('/download/message', messagePath)
+app.use('/download/profile', express.static(__dirname+ '/uploads/profile'))
+app.use('/download/post', express.static(__dirname+ '/uploads/post'))
+app.use('/download/comment', express.static(__dirname+ '/uploads/comment'))
 
 //passport session
 app.use(passport.initialize())

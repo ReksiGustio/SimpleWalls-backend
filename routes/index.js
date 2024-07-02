@@ -8,7 +8,7 @@ const fileController = require('../controllers/FileController')
 const postController = require('../controllers/PostController')
 const likeController = require('../controllers/LikeController')
 const commentController = require('../controllers/CommentController')
-const { uploadProfile, uploadMessage } = require('../controllers/FileController')
+const { uploadProfile, uploadPost, uploadComment } = require('../controllers/FileController')
 
 const { validateRegister, validateLogin, authenticate } = require('../middlewares/validators')
 
@@ -42,8 +42,9 @@ router.delete('/comment/:id', commentController.deleteComment)
 router.post('/comment/like/:id', likeController.likeComment)
 router.delete('/comment/like/:id', likeController.unlikeComment)
 
-router.post('/upload/profile/:userName', uploadProfile, fileController.uploadFile)
-router.post('/upload/message/:sender&:receiver&:id', uploadMessage, fileController.uploadFile)
+router.post('/upload/profile/:userId', uploadProfile, fileController.uploadFile)
+router.post('/upload/post/:postId', uploadPost, fileController.uploadFile)
+router.post('/upload/comment/:commentId', uploadComment, fileController.uploadFile)
 
 //export router
 module.exports = router

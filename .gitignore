@@ -4,3 +4,5 @@ node_modules
 node_modules
 prisma/migrations
 uploads/profile/*
+uploads/post/*
+uploads/comment/*

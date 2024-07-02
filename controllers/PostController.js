@@ -176,7 +176,6 @@ const updatePost = async (req, res) => {
             },
             data: {
                 title: req.body.title,
-                imageURL: req.body.imageURL,
                 published: req.body.published
             },
             select: {

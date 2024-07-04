@@ -16,7 +16,8 @@ const deserialize = async (id, done) => {
             },
             select: {
                 id: true,
-                userName: true
+                userName: true,
+                profile: true
             }
         })
 
@@ -39,7 +40,8 @@ const strategy = new LocalStrategy({ passReqToCallback: true },
             select: {
                 id: true,
                 userName: true,
-                password: true
+                password: true,
+                profile: true,
             }
         })
 

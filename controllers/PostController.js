@@ -46,7 +46,14 @@ const findPost = async (req, res) => {
                 createdAt: true,
                 updatedAt: true,
                 published: true,
-                authorId: true
+                authorId: true,
+                author: {
+                    select: {
+                        id: true,
+                        userName: true,
+                        profile: true
+                    }
+                }
             },
         })
 

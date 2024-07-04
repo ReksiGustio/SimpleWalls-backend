@@ -18,6 +18,8 @@ model User {
   userName String @unique
   password String? 
   profile Profile?
+  following Following[]
+  follower Follower[]
   posts Post[]
   postlikes PostLike[]
   comments Comment[]
@@ -79,6 +81,26 @@ model CommentLike {
   user User @relation( fields: [userId], references: [id])
 
   @@id([commentId, userId])
+}
+
+model Following {
+  id Int
+  displayName String?
+  imageURL String?
+  userId Int
+  user User @relation( fields: [userId], references: [id])
+
+  @@id(userId)
+}
+
+model Follower {
+  id Int
+  displayName String?
+  imageURL String?
+  userId Int
+  user User @relation( fields: [userId], references: [id])
+
+  @@id(userId)
 }
 
 model Notification {

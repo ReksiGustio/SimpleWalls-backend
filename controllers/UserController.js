@@ -14,6 +14,8 @@ const status = async (req, res) => {
                 id: true,
                 userName: true,
                 profile: true,
+                following: true,
+                follower: true,
                 posts: {
                     include: {
                         likes: true,
@@ -91,6 +93,8 @@ const findUserByUsername = async (req, res) => {
                 id: true,
                 userName: true,
                 profile: true,
+                following: true,
+                follower: true,
                 posts: (String(req.body.partial) == 'partial' 
                     ? false
                     :{ include: { 
